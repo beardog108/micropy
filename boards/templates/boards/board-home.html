@@ -15,6 +15,12 @@
             {% endfor %}
             </ul>
         {% endif %}
+        <form action="/submit" method="post">
+            {% csrf_token %}
+            {{ new_post_form }}
+            <input type="submit" value="Submit">
+        </form>
+        
         {% if posts %}
             {% for post in post_list %}
             <div class='postTopic'><a href='/boards/{{ board.board_name }}/{{ post.id }}'>{{ post.name }}</a></div>

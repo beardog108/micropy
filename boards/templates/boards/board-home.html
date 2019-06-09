@@ -13,14 +13,17 @@
         {% if board_list %}
             <ul>
             {% for board in board_list %}
-                <li><a href="/boards/{{ board.board_name }}/">{{ board.board_name }}</a></li>
+                <li><a href="/{{ board.board_name }}/">{{ board.board_name }}</a></li>
             {% endfor %}
             </ul>
         {% endif %}
         
         {% if post_list %}
             {% for post in post_list %}
-            <div class='postTopic'><a href='/boards/{{ board.board_name }}/{{ post.id }}'>{{ post.title }}</a></div>
+                <div class='postTopic'><a href='/{{ board_name }}/{{ post.id }}'>{{ post.title }}</a> - {{ post.id }} - {{ post.date }}</div>
+                <div class='postContent'>
+                    {{ post.content }}
+                </div>
             {% endfor %}
             {% else %}
             <p>No posts are available.</p>
@@ -29,6 +32,7 @@
         <form action="/submit-post" method="post" class='submitPostForm'>
             {% csrf_token %}
             {{ new_post_form }}
+            <input type="hidden" name="board_name" value="{{ board_name }}">
             <input type="submit" value="Submit">
         </form>
     </body>

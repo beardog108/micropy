@@ -15,9 +15,13 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 '''
+import time, math
+from django.shortcuts import redirect
 from django.http import HttpResponse
 from boards import models
-def create_new_post(request): 
-    new_post = models.PostDB(board_name='humor', title=request.POST['post_title'], content=request.POST['post_content'])
+def create_new_post(request):
+    posted_board = request.POST['board_name']
+    new_post = models.PostDB(board_name=posted_board, title=request.POST['post_title'], content=request.POST['post_content'], date=math.floor(time.time()))
     new_post.save()
-    return HttpResponse("yeet %s %s" % (request.POST['post_title'], new_post.id))
+    return redirect('/%s/' % (posted_board,))
+    #return HttpResponse("Success, posted %s with id %s" % (request.POST['post_title'], new_post.id))

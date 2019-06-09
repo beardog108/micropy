@@ -18,9 +18,9 @@
 from django.shortcuts import render
 
 # Create your views here.
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.template import loader
-from .models import Boards
+from .models import Boards, Site
 from micropy import settings
 from boards import boardutils
 from boards import forms
@@ -42,7 +42,15 @@ def index(request):
     return resp
 
 def board_home(request, board_name):
-    context = {'board_name': board_name, 'new_post_form': forms.NewPostForm, 'post_list': boardutils.get_post_list_for_board(board_name)}
+    for board in STANDARD_CONTEXT['board_list']:
+        if board_name == board.board_name:
+            break
+    else:
+        raise Http404
+
+    context = {'board_name': board_name, 'new_post_form': forms.NewPostForm, 'post_list': boardutils.get_post_list_for_board(board_name),
+    'board_motd': Site.site_motd
+    }
     context = dict({**STANDARD_CONTEXT, **context})
     template = loader.get_template('boards/board-home.html')
     resp = HttpResponse(template.render(context, request))

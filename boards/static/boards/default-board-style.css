@@ -8,3 +8,9 @@
     padding: 1em;
     margin-right: 25%;
 }
+
+.postContent{
+    border: 1px solid black;
+    margin-right: 25%;
+    padding: 1em;
+}

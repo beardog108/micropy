@@ -8,10 +8,13 @@
     </head>
     <body>
         <h1 class='logo'>{{ site_name }}</h1>
+        {% if board_motd %}
+            {{ board.motd }}
+        {% endif %}
         {% if board_list %}
             <ul>
             {% for board in board_list %}
-                <li><a href="/boards/{{ board.board_name }}/">{{ board.board_name }}</a></li>
+                <li><a href="/{{ board.board_name }}/">{{ board.board_name }}</a></li>
             {% endfor %}
             </ul>
         {% else %}

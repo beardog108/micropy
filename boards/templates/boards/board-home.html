@@ -18,9 +18,9 @@
             </ul>
         {% endif %}
         
-        {% if posts %}
+        {% if post_list %}
             {% for post in post_list %}
-            <div class='postTopic'><a href='/boards/{{ board.board_name }}/{{ post.id }}'>{{ post.name }}</a></div>
+            <div class='postTopic'><a href='/boards/{{ board.board_name }}/{{ post.id }}'>{{ post.title }}</a></div>
             {% endfor %}
             {% else %}
             <p>No posts are available.</p>

@@ -24,6 +24,7 @@ from .models import Boards
 from micropy import settings
 from boards import boardutils
 from boards import forms
+from . import postcreator
 
 try:
     site_name = settings.SITE_NAME
@@ -41,8 +42,11 @@ def index(request):
     return resp
 
 def board_home(request, board_name):
-    context = {'board_name': board_name, 'new_post_form': forms.NewPostForm}
+    context = {'board_name': board_name, 'new_post_form': forms.NewPostForm, 'post_list': boardutils.get_post_list_for_board(board_name)}
     context = dict({**STANDARD_CONTEXT, **context})
     template = loader.get_template('boards/board-home.html')
     resp = HttpResponse(template.render(context, request))
     return resp
+
+def submit_post(request):
+    return postcreator.create_new_post(request)

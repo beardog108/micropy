@@ -1,0 +1,10 @@
+.submitPostForm input, .submitPostForm label{
+    margin-top: 1em;
+    display: block;
+}
+
+.submitPostForm{
+    border: 1px solid black;
+    padding: 1em;
+    margin-right: 25%;
+}

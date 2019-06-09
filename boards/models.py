@@ -16,5 +16,6 @@ class PostDB(models.Model):
     board_name = models.TextField(max_length=MAX_BOARD_NAME_LENGTH)
     parent_id = models.IntegerField(null=True)
     tripcode = models.TextField(max_length=150, null=True)
+    title = models.TextField(max_length=12)
     name = models.CharField(max_length=25, default="anonymous")
     content = models.TextField(max_length=500000)

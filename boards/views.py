@@ -43,7 +43,6 @@ def index(request):
         try:
             context[setting] = getattr(settings, setting)
         except AttributeError:
-            print('darn', setting)
             pass
 
     context = dict({**STANDARD_CONTEXT, **context})

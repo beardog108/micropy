@@ -19,6 +19,7 @@ import time, math
 from django.shortcuts import redirect
 from django.http import HttpResponse
 from boards import models
+
 def create_new_post(request):
     posted_board = request.POST['board_name']
     new_post = models.PostDB(board_name=posted_board, title=request.POST['post_title'], content=request.POST['post_content'], date=math.floor(time.time()))

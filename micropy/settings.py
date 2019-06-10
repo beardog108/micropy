@@ -26,6 +26,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+SITE_MOTD = 'Welcome to a new <a href="https://github.com/beardog108/micropy">MicroPY</a> site!'
+
 # Application definition
 
 INSTALLED_APPS = [

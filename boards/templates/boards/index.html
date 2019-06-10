@@ -3,7 +3,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <link rel="stylesheet" type="text/css" href="{% static 'boards/style.css' %}">
+        <link rel="stylesheet" href="{% static 'boards/style.css' %}">
         <title>{{ site_name }}</title>
     </head>
     <body>
@@ -12,13 +12,20 @@
             {{ board.motd }}
         {% endif %}
         {% if board_list %}
-            <ul>
+            <ul class='boardList'>
             {% for board in board_list %}
-                <li><a href="/{{ board.board_name }}/">{{ board.board_name }}</a></li>
+                <li>/<a href="/{{ board.board_name }}/">{{ board.board_name }}</a>/</li>
             {% endfor %}
             </ul>
         {% else %}
             <p>No boards are available.</p>
+        {% endif %}
+        {% if SITE_MOTD %}
+            <div class='motd'>
+                <b>Message of the day</b>:
+                <br><br>
+                {% autoescape off %}{{ SITE_MOTD }}{% endautoescape %}
+            </div>
         {% endif %}
     </body>
 </html>

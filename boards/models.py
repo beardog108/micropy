@@ -21,9 +21,3 @@ class PostDB(models.Model):
     title = models.TextField(max_length=12)
     name = models.CharField(max_length=25, default="anonymous")
     content = models.TextField(max_length=500000)
-
-class Site(models.Model):
-    site_rules = models.TextField(null=True)
-    site_terms = models.TextField(null=True)
-    site_privacy = models.TextField(null=True)
-    site_motd = models.TextField(null=True)

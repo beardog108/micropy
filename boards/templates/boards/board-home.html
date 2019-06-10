@@ -4,32 +4,36 @@
     <head>
         <meta charset="utf-8">
         <title>{{ site_name }} | {{ board_name }}</title>
-        <link rel="stylesheet" type="text/css" href="{% static 'boards/default-board-style.css' %}">
+        <link rel="stylesheet" href="{% static 'boards/style.css' %}">
+        <link rel="stylesheet" href="{% static 'boards/default-board-style.css' %}">
     </head>
     <body>
-        <h1>
+        <h1 class='boardLogo'>
             {{ board_name }}
         </h1>
+        <a href="/">Return Home</a>
         {% if board_list %}
-            <ul>
+            <ul class='boardList'>
             {% for board in board_list %}
-                <li><a href="/{{ board.board_name }}/">{{ board.board_name }}</a></li>
+                <li>/<a href="/{{ board.board_name }}/">{{ board.board_name }}</a>/</li>
             {% endfor %}
             </ul>
         {% endif %}
         
         {% if post_list %}
             {% for post in post_list %}
-                <div class='postTopic'><a href='/{{ board_name }}/{{ post.id }}'>{{ post.title }}</a> - {{ post.id }} - {{ post.date }}</div>
+                <div class='postTopic'>{{ post.title }}</a> - {{ post.id }} - {{ post.date }}</div>
                 <div class='postContent'>
                     {{ post.content }}
+                    <button class='reportPost'>Report</button>
                 </div>
             {% endfor %}
             {% else %}
             <p>No posts are available.</p>
         {% endif %}
-        
+
         <form action="/submit-post" method="post" class='submitPostForm'>
+            <h2>New Post or Reply</h2>
             {% csrf_token %}
             {{ new_post_form }}
             <input type="hidden" name="board_name" value="{{ board_name }}">

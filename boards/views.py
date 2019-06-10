@@ -20,7 +20,7 @@ from django.shortcuts import render
 # Create your views here.
 from django.http import HttpResponse, Http404
 from django.template import loader
-from .models import Boards, Site
+from .models import Boards
 from micropy import settings
 from boards import boardutils
 from boards import forms
@@ -37,8 +37,18 @@ STANDARD_CONTEXT = {
 }
 
 def index(request):
+    settings_to_load = ['SITE_MOTD', 'SITE_PRIVACY', 'SITE_RULES']
+    context = {}
+    for setting in settings_to_load:
+        try:
+            context[setting] = getattr(settings, setting)
+        except AttributeError:
+            print('darn', setting)
+            pass
+
+    context = dict({**STANDARD_CONTEXT, **context})
     template = loader.get_template('boards/index.html')
-    resp = HttpResponse(template.render(STANDARD_CONTEXT, request))
+    resp = HttpResponse(template.render(context, request))
     return resp
 
 def board_home(request, board_name):
@@ -48,9 +58,7 @@ def board_home(request, board_name):
     else:
         raise Http404
 
-    context = {'board_name': board_name, 'new_post_form': forms.NewPostForm, 'post_list': boardutils.get_post_list_for_board(board_name),
-    'board_motd': Site.site_motd
-    }
+    context = {'board_name': board_name, 'new_post_form': forms.NewPostForm, 'post_list': boardutils.get_post_list_for_board(board_name),}
     context = dict({**STANDARD_CONTEXT, **context})
     template = loader.get_template('boards/board-home.html')
     resp = HttpResponse(template.render(context, request))
@@ -58,3 +66,6 @@ def board_home(request, board_name):
 
 def submit_post(request):
     return postcreator.create_new_post(request)
+
+def custom_admin(request):
+    return HttpResponse("YEET")

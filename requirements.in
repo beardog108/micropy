@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-Django==2.2.4
-=======
-Django==2.2.3
->>>>>>> fe88a965f435f86421f99a6a7811a56ce3dab8cc
+django==2.2.8
